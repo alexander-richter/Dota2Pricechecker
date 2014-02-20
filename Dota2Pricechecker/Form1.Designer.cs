@@ -46,10 +46,18 @@
             this.checkBoxTopMost = new System.Windows.Forms.CheckBox();
             this.backgroundWorkerPricecheck = new System.ComponentModel.BackgroundWorker();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonLookup = new System.Windows.Forms.Button();
+            this.textBoxLookup = new System.Windows.Forms.TextBox();
+            this.backgroundWorkerAutocomplete = new System.ComponentModel.BackgroundWorker();
+            this.comboBoxLookup = new System.Windows.Forms.ComboBox();
+            this.backgroundWorkerCombobox = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorkerLookup = new System.ComponentModel.BackgroundWorker();
             this.groupBoxWarehouse.SuspendLayout();
             this.groupBoxMarket.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBoxOptions.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // backgroundWorkerCurrency
@@ -61,12 +69,12 @@
             this.groupBoxWarehouse.AutoSize = true;
             this.groupBoxWarehouse.Controls.Add(this.labelGold);
             this.groupBoxWarehouse.Controls.Add(this.labelItemname);
-            this.groupBoxWarehouse.Location = new System.Drawing.Point(12, 73);
+            this.groupBoxWarehouse.Location = new System.Drawing.Point(12, 155);
             this.groupBoxWarehouse.Name = "groupBoxWarehouse";
-            this.groupBoxWarehouse.Size = new System.Drawing.Size(200, 72);
+            this.groupBoxWarehouse.Size = new System.Drawing.Size(219, 72);
             this.groupBoxWarehouse.TabIndex = 0;
             this.groupBoxWarehouse.TabStop = false;
-            this.groupBoxWarehouse.Text = "Dota 2 Warehouse";
+            this.groupBoxWarehouse.Text = "Iteminfo";
             // 
             // labelGold
             // 
@@ -96,7 +104,7 @@
             // groupBoxMarket
             // 
             this.groupBoxMarket.Controls.Add(this.textBoxMarketQuotes);
-            this.groupBoxMarket.Location = new System.Drawing.Point(12, 151);
+            this.groupBoxMarket.Location = new System.Drawing.Point(12, 233);
             this.groupBoxMarket.Name = "groupBoxMarket";
             this.groupBoxMarket.Size = new System.Drawing.Size(131, 223);
             this.groupBoxMarket.TabIndex = 1;
@@ -122,7 +130,7 @@
             this.dataToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(221, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(241, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -165,7 +173,7 @@
             this.groupBoxOptions.Controls.Add(this.checkBoxTopMost);
             this.groupBoxOptions.Location = new System.Drawing.Point(12, 28);
             this.groupBoxOptions.Name = "groupBoxOptions";
-            this.groupBoxOptions.Size = new System.Drawing.Size(200, 39);
+            this.groupBoxOptions.Size = new System.Drawing.Size(86, 39);
             this.groupBoxOptions.TabIndex = 3;
             this.groupBoxOptions.TabStop = false;
             this.groupBoxOptions.Text = "Options";
@@ -190,11 +198,66 @@
             this.timer1.Interval = 1500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.comboBoxLookup);
+            this.groupBox1.Controls.Add(this.buttonLookup);
+            this.groupBox1.Controls.Add(this.textBoxLookup);
+            this.groupBox1.Location = new System.Drawing.Point(12, 74);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(219, 75);
+            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Look up Item";
+            // 
+            // buttonLookup
+            // 
+            this.buttonLookup.Enabled = false;
+            this.buttonLookup.Location = new System.Drawing.Point(155, 45);
+            this.buttonLookup.Name = "buttonLookup";
+            this.buttonLookup.Size = new System.Drawing.Size(57, 24);
+            this.buttonLookup.TabIndex = 1;
+            this.buttonLookup.Text = "Look up!";
+            this.buttonLookup.UseVisualStyleBackColor = true;
+            this.buttonLookup.Click += new System.EventHandler(this.buttonLookup_Click);
+            // 
+            // textBoxLookup
+            // 
+            this.textBoxLookup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxLookup.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.textBoxLookup.Location = new System.Drawing.Point(6, 46);
+            this.textBoxLookup.Name = "textBoxLookup";
+            this.textBoxLookup.Size = new System.Drawing.Size(143, 20);
+            this.textBoxLookup.TabIndex = 0;
+            this.textBoxLookup.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // backgroundWorkerAutocomplete
+            // 
+            this.backgroundWorkerAutocomplete.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerAutocomplete_DoWork);
+            // 
+            // comboBoxLookup
+            // 
+            this.comboBoxLookup.FormattingEnabled = true;
+            this.comboBoxLookup.Location = new System.Drawing.Point(6, 19);
+            this.comboBoxLookup.Name = "comboBoxLookup";
+            this.comboBoxLookup.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxLookup.TabIndex = 2;
+            this.comboBoxLookup.SelectedIndexChanged += new System.EventHandler(this.comboBoxLookup_SelectedIndexChanged);
+            // 
+            // backgroundWorkerCombobox
+            // 
+            this.backgroundWorkerCombobox.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerCombobox_DoWork);
+            // 
+            // backgroundWorkerLookup
+            // 
+            this.backgroundWorkerLookup.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerLookup_DoWork);
+            // 
             // Pricechecker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(221, 386);
+            this.ClientSize = new System.Drawing.Size(241, 463);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBoxOptions);
             this.Controls.Add(this.groupBoxMarket);
             this.Controls.Add(this.groupBoxWarehouse);
@@ -212,6 +275,8 @@
             this.menuStrip1.PerformLayout();
             this.groupBoxOptions.ResumeLayout(false);
             this.groupBoxOptions.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -235,6 +300,13 @@
         private System.Windows.Forms.CheckBox checkBoxTopMost;
         private System.ComponentModel.BackgroundWorker backgroundWorkerPricecheck;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button buttonLookup;
+        private System.Windows.Forms.TextBox textBoxLookup;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerAutocomplete;
+        private System.Windows.Forms.ComboBox comboBoxLookup;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerCombobox;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerLookup;
     }
 }
 
