@@ -241,36 +241,77 @@ namespace Dota2Pricechecker
         {
             new WebClient();
 
-            HtmlAgilityPack.HtmlDocument document = web.Load("http://dota2.gamepedia.com/Category:" + comboBoxLookup.Text);
-            try
+            if (comboBoxLookup.Text != "Couriers" && comboBoxLookup.Text != "HUD_Skins")
             {
-                itemlist.Clear();
-                foreach (HtmlNode node in document.DocumentNode.SelectNodes("//div[@class='mw-content-ltr']//a[@href]"))
+                HtmlAgilityPack.HtmlDocument document = web.Load("http://dota2.gamepedia.com/Category:" + comboBoxLookup.Text + "_equipment");
+                try
                 {
-                    //HtmlAttribute htmlAttribute = node.Attributes["href"];
+                    itemlist.Clear();
+                    foreach (HtmlNode node in document.DocumentNode.SelectNodes("//div[@class='mw-content-ltr']//a[@href]"))
+                    {
+                        itemlist.Add(node.InnerText.ToString());
+                    }
+                    //MessageBox.Show(string.Join(Environment.NewLine, itemlist));
 
-
-                    itemlist.Add(node.InnerText.ToString());
                 }
-                //MessageBox.Show(string.Join(Environment.NewLine, itemlist));
-
+                catch
+                {
+                    textBoxMarketQuotes.Text = "Error getting autocomplete itemlist";
+                }
             }
-            catch
+            if (comboBoxLookup.Text == "Couriers")
             {
-                //textBoxLookup.Text = "Error";
+                HtmlAgilityPack.HtmlDocument document = web.Load("http://dota2.gamepedia.com/Custom_Courier");
+                try
+                {
+                    itemlist.Clear();
+                    foreach (HtmlNode node in document.DocumentNode.SelectNodes("//table[@class='navbox']/tr/td/table/tr/td/div/div//a[@href]"))
+                    {
+                        itemlist.Add(node.InnerText.ToString());
+                    }
+                    //MessageBox.Show(string.Join(Environment.NewLine, itemlist));
+
+                }
+                catch
+                {
+                    textBoxMarketQuotes.Text = "Error getting autocomplete itemlist";
+                }
             }
+            if (comboBoxLookup.Text == "HUD_Skins") 
+            {
+                HtmlAgilityPack.HtmlDocument document = web.Load("http://dota2.gamepedia.com/HUD_Skins");
+                try
+                {
+                    itemlist.Clear();
+                    foreach (HtmlNode node in document.DocumentNode.SelectNodes("//table[@class='navbox']/tr/td/table/tr/td/div/div//a[@href]"))
+                    {
+                        itemlist.Add(node.InnerText.ToString());
+                    }
+                    //MessageBox.Show(string.Join(Environment.NewLine, itemlist));
+
+                }
+                catch
+                {
+                    textBoxMarketQuotes.Text = "Error getting autocomplete itemlist";
+                }
+            }
+
+
         }
         private void backgroundWorkerAutocomplete_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            //autocomplete start
             AutoCompleteStringCollection source = new AutoCompleteStringCollection();
             textBoxLookup.AutoCompleteMode = AutoCompleteMode.Suggest;
             textBoxLookup.AutoCompleteSource = AutoCompleteSource.CustomSource;
             source.AddRange(itemlist.ToArray());
             textBoxLookup.AutoCompleteCustomSource = source;
-            textBoxLookup.Enabled = true;
+            //autocomplete end
+
             buttonLookup.Enabled = true;
         }
 
+        //start the process of getting all specific items
         private void buttonLookup_Click(object sender, EventArgs e)
         {
             if (textBoxLookup.Text.Trim() != "")
@@ -280,7 +321,7 @@ namespace Dota2Pricechecker
             
         }
 
-
+        //get all hero names for combobox and add huds and kurus
         private void backgroundWorkerCombobox_DoWork(object sender, DoWorkEventArgs e)
         {
             new WebClient();
@@ -290,7 +331,7 @@ namespace Dota2Pricechecker
             {
                 foreach (HtmlNode node in document.DocumentNode.SelectNodes("//div[@class='span2 hero-category']//a[@href]"))
                 {
-                    comboBoxLookup.Items.Add(node.InnerText + "_equipment");
+                    comboBoxLookup.Items.Add(node.InnerText);
                 }
                 comboBoxLookup.Items.Add("HUD_Skins");
                 comboBoxLookup.Items.Add("Couriers");
@@ -298,7 +339,7 @@ namespace Dota2Pricechecker
             }
             catch
             {
-                //textBoxLookup.Text = "Error";
+                textBoxMarketQuotes.Text = "Error getting hero names";
             }
         }
         private void backgroundWorkerCombobox_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -322,7 +363,8 @@ namespace Dota2Pricechecker
 
         private void backgroundWorkerLookup_DoWork(object sender, DoWorkEventArgs e)
         {
-            labelItemname.Text = textBoxLookup.Text;
+            itemname = textBoxLookup.Text;
+            labelItemname.Text = itemname;
             labelGold.Text = "...";
 
             textBoxMarketQuotes.Clear();
@@ -336,7 +378,7 @@ namespace Dota2Pricechecker
             {
                 new WebClient();
 
-                HtmlAgilityPack.HtmlDocument document = web.Load("http://steamcommunity.com/market/listings/570/" + textBoxLookup.Text.Replace(" ", "%20").Replace("&#39;", "%27"));
+                HtmlAgilityPack.HtmlDocument document = web.Load("http://steamcommunity.com/market/listings/570/" + itemname.Replace(" ", "%20").Replace("&#39;", "%27"));
                 //get the €_€
                 textBoxMarketQuotes.Clear();
                 textBoxMarketQuotes.Text = "\r\n";
@@ -388,6 +430,11 @@ namespace Dota2Pricechecker
                     textBoxMarketQuotes.Text += "No Market Data available.";
                 }
             }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

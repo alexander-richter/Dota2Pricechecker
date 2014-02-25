@@ -39,7 +39,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.crawlerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lookUpItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxOptions = new System.Windows.Forms.GroupBox();
@@ -47,10 +46,10 @@
             this.backgroundWorkerPricecheck = new System.ComponentModel.BackgroundWorker();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBoxLookup = new System.Windows.Forms.ComboBox();
             this.buttonLookup = new System.Windows.Forms.Button();
             this.textBoxLookup = new System.Windows.Forms.TextBox();
             this.backgroundWorkerAutocomplete = new System.ComponentModel.BackgroundWorker();
-            this.comboBoxLookup = new System.Windows.Forms.ComboBox();
             this.backgroundWorkerCombobox = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorkerLookup = new System.ComponentModel.BackgroundWorker();
             this.groupBoxWarehouse.SuspendLayout();
@@ -138,7 +137,6 @@
             // 
             this.dataToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.crawlerToolStripMenuItem,
-            this.lookUpItemToolStripMenuItem,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.dataToolStripMenuItem.Name = "dataToolStripMenuItem";
@@ -148,25 +146,20 @@
             // crawlerToolStripMenuItem
             // 
             this.crawlerToolStripMenuItem.Name = "crawlerToolStripMenuItem";
-            this.crawlerToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.crawlerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.crawlerToolStripMenuItem.Text = "Crawler";
-            // 
-            // lookUpItemToolStripMenuItem
-            // 
-            this.lookUpItemToolStripMenuItem.Name = "lookUpItemToolStripMenuItem";
-            this.lookUpItemToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.lookUpItemToolStripMenuItem.Text = "Item Lookup";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(138, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // groupBoxOptions
             // 
@@ -210,6 +203,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Look up Item";
             // 
+            // comboBoxLookup
+            // 
+            this.comboBoxLookup.FormattingEnabled = true;
+            this.comboBoxLookup.Location = new System.Drawing.Point(6, 19);
+            this.comboBoxLookup.Name = "comboBoxLookup";
+            this.comboBoxLookup.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxLookup.TabIndex = 2;
+            this.comboBoxLookup.SelectedIndexChanged += new System.EventHandler(this.comboBoxLookup_SelectedIndexChanged);
+            // 
             // buttonLookup
             // 
             this.buttonLookup.Enabled = false;
@@ -234,15 +236,6 @@
             // backgroundWorkerAutocomplete
             // 
             this.backgroundWorkerAutocomplete.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerAutocomplete_DoWork);
-            // 
-            // comboBoxLookup
-            // 
-            this.comboBoxLookup.FormattingEnabled = true;
-            this.comboBoxLookup.Location = new System.Drawing.Point(6, 19);
-            this.comboBoxLookup.Name = "comboBoxLookup";
-            this.comboBoxLookup.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxLookup.TabIndex = 2;
-            this.comboBoxLookup.SelectedIndexChanged += new System.EventHandler(this.comboBoxLookup_SelectedIndexChanged);
             // 
             // backgroundWorkerCombobox
             // 
@@ -290,7 +283,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem dataToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem crawlerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem lookUpItemToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Label labelGold;
